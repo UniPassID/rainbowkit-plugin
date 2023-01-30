@@ -1,6 +1,6 @@
 {
   "name": "@unipasswallet/rainbowkit-plugin",
-  "version": "0.0.1-alpha.5",
+  "version": "0.0.1-alpha.6",
   "description": "rainbowkit plugin for the UniPass wallet",
   "main": "dist/index.js",
   "scripts": {
