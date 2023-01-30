@@ -1,103 +1,63 @@
-# TSDX User Guide
+# rainbowkit-plugin
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+RainbowKit connector for the [UniPass](https://unipass.vip/) wallet.
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+## Installation
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
-
-## Commands
-
-TSDX scaffolds your new library inside `/src`.
-
-To run TSDX, use:
-
-```bash
-npm start # or yarn start
+```shell
+  npm install @unipasswallet/rainbowkit-plugin
+```
+or
+```shell
+  yarn add @unipasswallet/rainbowkit-plugin
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## Parameters
 
-To do a one-off build, use `npm run build` or `yarn build`.
+* `chains` -- Chains supported by app. This is the same parameter as would be passed to other RainbowKit wallets..
 
-To run tests, use `npm test` or `yarn test`.
+* `options.connect` -- Connection options for the default networkId, name of the app.
 
-## Configuration
+* `options.connect.chainId` -- Default chainId.
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+* `options.connect.returnEmail` -- If true, email will return when connect function been called.
 
-### Jest
+* `options.connect.appSettings` -- Config appName, appIcon and theme.
 
-Jest tests are set up to run with `npm test` or `yarn test`.
-
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+## Usage
 
 ```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
+  import { unipassWallet } from "@unipasswallet/rainbowkit-plugin'
 
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
+  const connectors = connectorsForWallets([
+    {
+      groupName: "Recommended",
+      wallets: [
+        injectedWallet({ chains, shimDisconnect: true }),
+        metaMaskWallet({ chains, shimDisconnect: true }),
+        rainbowWallet({ chains }),
+        unipassWallet({
+          chains,
+          connect: {
+            chainId: polygonMumbai.id,
+            returnEmail: false,
+            appSettings: {
+              appName: "wagmi demo",
+              appIcon: "your icon url",
+            },
+          },
+        }),
+      ],
+    },
+  ]);
+
+  const wagmiClient = createClient({
+    autoConnect: true,
+    connectors,
+    provider,
+  });
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+## Example
 
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Named Exports
-
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
-
-## Including Styles
-
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
-
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
+A demo app for RainbowKit is available [here](https://up-rainbowkit-demo.vercel.app/)
