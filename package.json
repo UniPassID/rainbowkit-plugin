@@ -1,7 +1,7 @@
 {
   "name": "@unipasswallet/rainbowkit-plugin",
   "version": "0.0.1-alpha.5",
-  "description": "Wagmi connector for the UniPass wallet",
+  "description": "rainbowkit plugin for the UniPass wallet",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
