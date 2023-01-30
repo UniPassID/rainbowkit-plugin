@@ -17,6 +17,8 @@
     "lint": "tsdx lint"
   },
   "peerDependencies": {
+    "@unipasswallet/ethereum-provider": "0.0.13-alpha.5",
+    "@unipasswallet/popup-types": "0.0.13-alpha.5",
     "@rainbow-me/rainbowkit": ">=0.8.1",
     "wagmi": ">=0.9.0",
     "ethers": ">=5.5"
@@ -46,6 +48,8 @@
   ],
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.8.1",
+    "@unipasswallet/ethereum-provider": "0.0.13-alpha.5",
+    "@unipasswallet/popup-types": "0.0.13-alpha.5",
     "antd": "^5.1.6",
     "ethers": "^5.7.2",
     "umi": "^4.0.47",
