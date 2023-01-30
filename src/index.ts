@@ -1,1 +1,1 @@
-export * from './unipass-wallet'
+export * from './unipass-wallet';
