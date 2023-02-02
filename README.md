@@ -1,7 +1,5 @@
 # rainbowkit-plugin
 
-RainbowKit connector for the [UniPass](https://unipass.vip/) wallet.
-
 ## Installation
 
 ```shell
