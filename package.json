@@ -19,15 +19,15 @@
   "homepage": "https://github.com/UniPass/rainbowkit-plugin#readme",
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.8.1",
-    "@unipasswallet/ethereum-provider": "^1.0.1",
-    "@unipasswallet/popup-types": "^1.0.1",
+    "@unipasswallet/ethereum-provider": "^1.1.0",
+    "@unipasswallet/popup-types": "^1.1.0",
     "ethers": "^5.7.2",
     "wagmi": "^0.11.0"
   },
   "peerDependencies": {
     "@rainbow-me/rainbowkit": ">=0.8.1",
-    "@unipasswallet/ethereum-provider": "^1.0.1",
-    "@unipasswallet/popup-types": "^1.0.1",
+    "@unipasswallet/ethereum-provider": "^1.1.0",
+    "@unipasswallet/popup-types": "^1.1.0",
     "ethers": "^5.7.2",
     "wagmi": "^0.11.0"
   },
