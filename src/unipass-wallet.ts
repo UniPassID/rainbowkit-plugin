@@ -13,7 +13,7 @@ export const unipassWallet = ({ chains, connect }: MyWalletOptions): Wallet => (
   iconUrl: 'https://lay2-wallet-frontend.s3.ap-southeast-1.amazonaws.com/images/icon.svg',
   iconBackground: '#fff',
   downloadUrls: {
-    browserExtension: 'https://unipass.vip',
+    browserExtension: 'https://unipass.id',
   },
   createConnector: () => {
     const connector = new UniPassConnector({
@@ -29,7 +29,6 @@ export const unipassWallet = ({ chains, connect }: MyWalletOptions): Wallet => (
         getUri: async () => {
           try {
             await connector.connect();
-            return window.location.href;
           } catch (e) {
             console.error('Failed to connect');
           }
