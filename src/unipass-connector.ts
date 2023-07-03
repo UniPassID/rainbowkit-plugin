@@ -1,45 +1,47 @@
 import { UniPassProvider, UniPassProviderOptions } from '@unipasswallet/ethereum-provider';
 import { UPAccount } from '@unipasswallet/popup-types';
 import { providers } from 'ethers';
-import { Address, Chain, Connector, ConnectorData, UserRejectedRequestError } from 'wagmi';
-
-interface Options {
-  connect: UniPassProviderOptions;
-}
+import { Address, Chain, Connector, WalletClient } from 'wagmi';
+import { UserRejectedRequestError, ProviderRpcError, createWalletClient, custom } from 'viem';
 
 interface UniPassConnectorOptions {
   chains?: Chain[];
-  options: Options;
+  options: UniPassProviderOptions;
 }
 
-export class UniPassConnector extends Connector<UniPassProvider, Options | undefined> {
+export class UniPassConnector extends Connector<UniPassProvider, UniPassProviderOptions> {
   id = 'unipass';
   name = 'UniPass';
   ready = true;
 
-  options: Options | undefined;
+  options: UniPassProviderOptions;
   provider: UniPassProvider;
-  upAccount?: UPAccount;
 
   constructor({ chains, options }: UniPassConnectorOptions) {
     super({ chains, options });
     this.options = options;
-    this.provider = new UniPassProvider(options.connect);
+    this.provider = new UniPassProvider(options);
   }
 
-  async connect(): Promise<Required<ConnectorData<providers.Web3Provider>>> {
+  public get upAccount() {
+    return this.getUpAccount();
+  }
+
+  async connect() {
     let _account: any;
     try {
-      // @ts-ignore
+      // @ts-ignore-next-line
       this?.emit('message', { type: 'connecting' });
       _account = await this.provider.connect();
-    } catch (e) {
-      throw new UserRejectedRequestError(e);
+    } catch (error) {
+      if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
+        throw new UserRejectedRequestError(error as Error);
+      }
+      throw error;
     }
 
     const chianId = this.provider.getChainId();
     const address = _account.address as Address;
-    this.upAccount = _account;
 
     return {
       account: address,
@@ -55,8 +57,21 @@ export class UniPassConnector extends Connector<UniPassProvider, Options | undef
     await this.provider.disconnect();
   }
 
-  async getAccount(): Promise<`0x${string}`> {
-    return Promise.resolve(this.upAccount?.address as `0x${string}`);
+  async getWalletClient(): Promise<WalletClient> {
+    const [provider, account] = await Promise.all([this.getProvider(), this.getAccount()]);
+    const chainId = await this.getChainId();
+    const chain = this.chains.find((x) => x.id === chainId);
+    if (!provider || !account) throw new Error('provider is required.');
+
+    return createWalletClient({
+      account: account as `0x${any}`,
+      chain,
+      transport: custom(provider),
+    });
+  }
+
+  async getAccount(): Promise<any> {
+    return Promise.resolve(this.upAccount?.address || '');
   }
 
   async getChainId(): Promise<number> {
@@ -74,11 +89,11 @@ export class UniPassConnector extends Connector<UniPassProvider, Options | undef
   }
 
   async switchChain(chainId: number): Promise<Chain> {
-    await this.provider.request({
+    await this.provider?.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: `0x${chainId.toString(16)}` }],
     });
-    // @ts-ignore
+    // @ts-ignore-next-line
     this?.emit('change', { chain: { id: chainId, unsupported: false } });
     return { id: chainId } as Chain;
   }
@@ -93,12 +108,24 @@ export class UniPassConnector extends Connector<UniPassProvider, Options | undef
 
   protected onChainChanged(chain: number): void {
     this.provider?.events?.emit('chainChanged', chain);
-    // @ts-ignore
+    // @ts-ignore-next-line
     this?.emit('change', { chain: { id: chain, unsupported: true } });
   }
 
   protected onDisconnect() {
-    // @ts-ignore
+    // @ts-ignore-next-line
     this?.emit('disconnect');
+  }
+
+  private getUpAccount(): UPAccount | undefined {
+    try {
+      const sessionAccount = sessionStorage.getItem('UP-A');
+      const localAccount = localStorage.getItem('UP-A');
+      if (sessionAccount) return JSON.parse(sessionAccount);
+      if (localAccount) return JSON.parse(localAccount);
+    } catch {
+      return;
+    }
+    return;
   }
 }

@@ -4,10 +4,10 @@ import { UniPassConnector } from './unipass-connector';
 
 export interface MyWalletOptions {
   chains: Chain[];
-  connect: UniPassProviderOptions;
+  options: UniPassProviderOptions;
 }
 
-export const unipassWallet = ({ chains, connect }: MyWalletOptions): Wallet => ({
+export const unipassWallet = ({ chains, options }: MyWalletOptions): Wallet => ({
   id: 'unipass',
   name: 'UniPass',
   iconUrl: 'https://lay2-wallet-frontend.s3.ap-southeast-1.amazonaws.com/images/icon.svg',
@@ -18,9 +18,7 @@ export const unipassWallet = ({ chains, connect }: MyWalletOptions): Wallet => (
   createConnector: () => {
     const connector = new UniPassConnector({
       chains,
-      options: {
-        connect,
-      },
+      options,
     });
 
     return {
