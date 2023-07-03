@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/UniPass/rainbowkit-plugin/compare/v1.1.9...v1.2.0) (2023-07-03)
+
+
+### Features
+
+* update wagmi & add viem ([5f63257](https://github.com/UniPass/rainbowkit-plugin/commit/5f6325755da814e8abc54c36b13282976bb135af))
+
+
+### Bug Fixes
+
+* refactor ([1d31799](https://github.com/UniPass/rainbowkit-plugin/commit/1d31799b65211391326d5225b4670dfb547fc7c2))
+
 ### 1.1.9 (2023-04-24)
 
 
