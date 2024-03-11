@@ -25,7 +25,7 @@
     "trailingComma": "es5"
   },
   "author": "lay2",
-  "homepage": "https://github.com/UniPass/rainbowkit-plugin#readme",
+  "homepage": "https://github.com/UniPassID/rainbowkit-plugin#readme",
   "dependencies": {
     "@rainbow-me/rainbowkit": "^1.0.4",
     "@unipasswallet/ethereum-provider": "^1.1.9",
