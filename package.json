@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UniPass/rainbowkit-plugin.git"
+    "url": "git+https://github.com/UniPassID/rainbowkit-plugin.git"
   },
   "prettier": {
     "printWidth": 80,
