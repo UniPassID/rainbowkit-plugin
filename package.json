@@ -1,6 +1,6 @@
 {
   "name": "@unipasswallet/rainbowkit-plugin",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "rainbowkit plugin for the UniPass wallet",
   "license": "MIT",
   "type": "module",

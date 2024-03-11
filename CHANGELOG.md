@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.3](https://github.com/UniPassID/rainbowkit-plugin/compare/v1.2.2...v1.2.3) (2024-03-11)
+
+
+### Bug Fixes
+
+* main ([97abbb0](https://github.com/UniPassID/rainbowkit-plugin/commit/97abbb0bc532880ffae0b6271c0c9db286117550))
+* main ([c4ba297](https://github.com/UniPassID/rainbowkit-plugin/commit/c4ba297e45b54c536c4f2b63cb30f783879bcdf1))
+* main ([b8067b4](https://github.com/UniPassID/rainbowkit-plugin/commit/b8067b40031842cbc33b1d8d447691b6186a6135))
+
 ### [1.2.2](https://github.com/UniPass/rainbowkit-plugin/compare/v1.2.1...v1.2.2) (2023-07-03)
 
 
